@@ -42,10 +42,20 @@ const TOCInline = ({
   )
 
   const tocList = (
-    <ul>
+    <ul className="space-y-1">
       {filteredToc.map((heading) => (
-        <li key={heading.value} className={`${heading.depth >= indentDepth && 'ml-6'}`}>
-          <a href={heading.url}>{heading.value}</a>
+        <li
+          key={heading.value}
+          className={`${
+            heading.depth >= indentDepth ? 'ml-4' : ''
+          } text-sm leading-6`}
+        >
+          <a
+            href={heading.url}
+            className="text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
+          >
+            {heading.value}
+          </a>
         </li>
       ))}
     </ul>
