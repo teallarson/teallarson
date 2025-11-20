@@ -2,11 +2,11 @@
 import React, { useMemo } from 'react'
 import { ComponentMap, getMDXComponent } from 'mdx-bundler/client'
 import Image from './Image'
+import ImageLightbox from './ImageLightbox'
 import CustomLink from './Link'
 import TOCInline from './TOCInline'
 import Pre from './Pre'
 import Collapsible from './Collapsible'
-import ImageLightbox from './ImageLightbox'
 
 const Wrapper: React.ComponentType<{ layout: string }> = ({ layout, ...rest }) => {
   const Layout = require(`../layouts/${layout}`).default
@@ -14,7 +14,8 @@ const Wrapper: React.ComponentType<{ layout: string }> = ({ layout, ...rest }) =
 }
 
 export const MDXComponents: ComponentMap = {
-  Image: ImageLightbox, // Use ImageLightbox for all images in MDX
+  Image: ImageLightbox, // Use ImageLightbox for all images in MDX (click to view larger)
+  img: ImageLightbox, // Also handle regular img tags
   //@ts-ignore
   TOCInline,
   a: CustomLink,
