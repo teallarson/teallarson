@@ -38,6 +38,7 @@ const Card = ({ title, description, imgSrc, href, linkText }: CardProps) => (
               className="transition-transform duration-300 group-hover:scale-110 object-cover object-center md:h-36 lg:h-48"
               width={544}
               height={306}
+              loading="lazy"
             />
           </div>
         ))}

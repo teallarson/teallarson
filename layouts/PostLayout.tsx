@@ -8,6 +8,8 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import SocialShare from '@/components/SocialShare'
 import TOCInline from '@/components/TOCInline'
+import ReadingProgress from '@/components/ReadingProgress'
+import formatDate from '@/lib/utils/formatDate'
 import { ReactNode } from 'react'
 import { PostFrontMatter } from 'types/PostFrontMatter'
 import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
@@ -27,14 +29,16 @@ interface Props {
   prev?: { slug: string; title: string }
   children: ReactNode
   toc?: Toc
+  relatedPosts?: PostFrontMatter[]
 }
 
-export default function PostLayout({ frontMatter, authorDetails, next, prev, children, toc }: Props) {
+export default function PostLayout({ frontMatter, authorDetails, next, prev, children, toc, relatedPosts }: Props) {
   const { slug, fileName, date, title, tags, readingTime, summary } = frontMatter
   const postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
 
   return (
     <SectionContainer>
+      <ReadingProgress />
       <BlogSEO
         url={postUrl}
         authorDetails={authorDetails}
@@ -115,6 +119,44 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 {children}
               </div>
               <SocialShare url={postUrl} title={title} summary={summary} />
+              {relatedPosts && relatedPosts.length > 0 && (
+                <div className="py-8">
+                  <h2 className="mb-6 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+                    Related Posts
+                  </h2>
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {relatedPosts.map((relatedPost) => (
+                      <Link
+                        key={relatedPost.slug}
+                        href={`/blog/${relatedPost.slug}`}
+                        className="group rounded-lg border border-gray-200 bg-white p-6 transition-all hover:border-primary-500 hover:shadow-soft dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500"
+                      >
+                        <h3 className="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
+                          {relatedPost.title}
+                        </h3>
+                        {relatedPost.summary && (
+                          <p className="mb-3 text-sm text-gray-600 line-clamp-2 dark:text-gray-300">
+                            {relatedPost.summary}
+                          </p>
+                        )}
+                        <div className="flex items-center justify-between">
+                          <time
+                            className="text-xs text-gray-500 dark:text-gray-400"
+                            dateTime={relatedPost.date}
+                          >
+                            {formatDate(relatedPost.date)}
+                          </time>
+                          {relatedPost.readingTime && (
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                              {relatedPost.readingTime.text}
+                            </span>
+                          )}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
             <footer>
               <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">

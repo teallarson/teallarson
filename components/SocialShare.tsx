@@ -13,8 +13,17 @@ export default function SocialShare({ url, title, summary }: SocialShareProps) {
 
   const handleCopyLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-    navigator.clipboard.writeText(url)
-    // You could add a toast notification here
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea')
+        textArea.value = url
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+      })
+    }
   }
 
   const shareLinks = [

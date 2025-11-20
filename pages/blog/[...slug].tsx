@@ -3,6 +3,7 @@ import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
 import { MDXLayoutRenderer } from '@/components/MDXComponents'
 import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx'
+import { getRelatedPosts } from '@/lib/utils/relatedPosts'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
 import { PostFrontMatter } from 'types/PostFrontMatter'
@@ -30,6 +31,7 @@ export const getStaticProps: GetStaticProps<{
   authorDetails: AuthorFrontMatter[]
   prev?: { slug: string; title: string }
   next?: { slug: string; title: string }
+  relatedPosts?: PostFrontMatter[]
 }> = async ({ params }) => {
   const slug = (params.slug as string[]).join('/')
   const allPosts = await getAllFilesFrontMatter('blog')
@@ -45,6 +47,9 @@ export const getStaticProps: GetStaticProps<{
   })
   const authorDetails = await Promise.all(authorPromise)
 
+  // Get related posts
+  const relatedPosts = getRelatedPosts(post.frontMatter, allPosts, 3)
+
   // rss
   if (allPosts.length > 0) {
     const rss = generateRss(allPosts)
@@ -57,6 +62,7 @@ export const getStaticProps: GetStaticProps<{
       authorDetails,
       prev,
       next,
+      relatedPosts,
     },
   }
 }
@@ -66,6 +72,7 @@ export default function Blog({
   authorDetails,
   prev,
   next,
+  relatedPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { mdxSource, toc, frontMatter } = post
 
@@ -85,6 +92,7 @@ export default function Blog({
             authorDetails={authorDetails}
             prev={prev}
             next={next}
+            relatedPosts={relatedPosts}
           />
         </>
       ) : (
