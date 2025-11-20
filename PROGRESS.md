@@ -143,9 +143,9 @@
 
 1. **Node.js Version**
    - Current: Node.js 15.14.0
-   - Required for Next.js 15: Node.js 18.18+
-   - Impact: Can't upgrade to Next.js 15 yet
-   - Workaround: Using Next.js 12 with React 18
+   - Required for Next.js 15: Node.js 18.18+ (Node.js 22 recommended)
+   - Status: ✅ Code migrated, ready to run after Node.js upgrade
+   - Action Required: Upgrade Node.js to 22 (see MIGRATION_GUIDE.md)
 
 2. **TypeScript Warning**
    - github-slugger type definition issue

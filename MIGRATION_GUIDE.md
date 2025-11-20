@@ -35,24 +35,24 @@
 ## ⚠️ Required: Node.js Upgrade
 
 **Current Node.js**: v15.14.0  
-**Required**: Node.js 18.18.0 or higher (Node.js 20 LTS recommended)
+**Required**: Node.js 18.18.0 or higher (Node.js 22 recommended)
 
 ### Upgrade Steps:
 
 1. **Using nvm (recommended)**:
    ```bash
-   nvm install 20
-   nvm use 20
+   nvm install 22
+   nvm use 22
    ```
 
 2. **Or download from nodejs.org**:
    - Visit https://nodejs.org/
-   - Download Node.js 20 LTS
+   - Download Node.js 22 (current version)
    - Install and restart terminal
 
 3. **Verify installation**:
    ```bash
-   node --version  # Should show v20.x.x or v18.18+
+   node --version  # Should show v22.x.x or v18.18+
    npm --version
    ```
 
