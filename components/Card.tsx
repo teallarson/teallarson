@@ -27,6 +27,7 @@ const Card = ({ title, description, imgSrc, href, linkText }: CardProps) => (
                 width={544}
                 height={306}
                 layout="intrinsic"
+                loading="lazy"
               />
             </div>
           </Link>
