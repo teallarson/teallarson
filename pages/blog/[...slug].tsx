@@ -32,6 +32,7 @@ export const getStaticProps: GetStaticProps<{
   prev?: { slug: string; title: string }
   next?: { slug: string; title: string }
   relatedPosts?: PostFrontMatter[]
+  allPosts?: PostFrontMatter[]
 }> = async ({ params }) => {
   const slug = (params.slug as string[]).join('/')
   const allPosts = await getAllFilesFrontMatter('blog')
@@ -63,6 +64,7 @@ export const getStaticProps: GetStaticProps<{
       prev,
       next,
       relatedPosts,
+      allPosts,
     },
   }
 }
@@ -73,6 +75,7 @@ export default function Blog({
   prev,
   next,
   relatedPosts,
+  allPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { mdxSource, toc, frontMatter } = post
 
@@ -80,7 +83,7 @@ export default function Blog({
     <>
       {'draft' in frontMatter && frontMatter.draft !== true ? (
         <>
-          <PageSEO title={frontMatter.title} description={frontMatter.summary} />
+          <PageSEO title={frontMatter.title} description={frontMatter.summary || ''} />
           {frontMatter.images && frontMatter.images.length > 0 ? (
             <meta property="og:image" content={`/src/${frontMatter.images[0]}`} />
           ) : null}
@@ -93,6 +96,7 @@ export default function Blog({
             prev={prev}
             next={next}
             relatedPosts={relatedPosts}
+            allPosts={allPosts}
           />
         </>
       ) : (

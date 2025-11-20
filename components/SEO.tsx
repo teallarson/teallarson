@@ -32,6 +32,8 @@ const CommonSEO = ({
       <title>{title}</title>
       <meta name="robots" content="follow, index" />
       <meta name="description" content={description} />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="theme-color" content="#14b8a6" />
       <meta property="og:url" content={`${siteMetadata.siteUrl}${router.asPath}`} />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={siteMetadata.title} />

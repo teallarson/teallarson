@@ -9,6 +9,8 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import SocialShare from '@/components/SocialShare'
 import TOCInline from '@/components/TOCInline'
 import ReadingProgress from '@/components/ReadingProgress'
+import PostSeries from '@/components/PostSeries'
+import ViewCounter from '@/components/ViewCounter'
 import formatDate from '@/lib/utils/formatDate'
 import { ReactNode } from 'react'
 import { PostFrontMatter } from 'types/PostFrontMatter'
@@ -30,10 +32,11 @@ interface Props {
   children: ReactNode
   toc?: Toc
   relatedPosts?: PostFrontMatter[]
+  allPosts?: PostFrontMatter[]
 }
 
-export default function PostLayout({ frontMatter, authorDetails, next, prev, children, toc, relatedPosts }: Props) {
-  const { slug, fileName, date, title, tags, readingTime, summary } = frontMatter
+export default function PostLayout({ frontMatter, authorDetails, next, prev, children, toc, relatedPosts, allPosts }: Props) {
+  const { slug, fileName, date, title, tags, readingTime, summary, series } = frontMatter
   const postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
 
   return (
@@ -115,10 +118,18 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
+              {series && allPosts && (
+                <div className="pt-10">
+                  <PostSeries series={series} currentSlug={slug} posts={allPosts} />
+                </div>
+              )}
               <div className="prose prose-lg max-w-none pt-10 pb-8 dark:prose-dark">
                 {children}
               </div>
-              <SocialShare url={postUrl} title={title} summary={summary} />
+              <div className="flex flex-col gap-4 border-t border-gray-200 pt-6 dark:border-gray-700 sm:flex-row sm:items-center sm:justify-between">
+                <ViewCounter slug={slug} />
+                <SocialShare url={postUrl} title={title} summary={summary} />
+              </div>
               {relatedPosts && relatedPosts.length > 0 && (
                 <div className="py-8">
                   <h2 className="mb-6 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">

@@ -5,6 +5,8 @@ import Image from './Image'
 import CustomLink from './Link'
 import TOCInline from './TOCInline'
 import Pre from './Pre'
+import Collapsible from './Collapsible'
+import ImageLightbox from './ImageLightbox'
 
 const Wrapper: React.ComponentType<{ layout: string }> = ({ layout, ...rest }) => {
   const Layout = require(`../layouts/${layout}`).default
@@ -12,12 +14,14 @@ const Wrapper: React.ComponentType<{ layout: string }> = ({ layout, ...rest }) =
 }
 
 export const MDXComponents: ComponentMap = {
-  Image,
+  Image: ImageLightbox, // Use ImageLightbox for all images in MDX
   //@ts-ignore
   TOCInline,
   a: CustomLink,
   pre: Pre,
   wrapper: Wrapper,
+  //@ts-ignore
+  Collapsible,
 }
 
 interface Props {
