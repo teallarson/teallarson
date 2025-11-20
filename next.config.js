@@ -53,13 +53,13 @@ const securityHeaders = [
 ]
 
 /**
- * @type {import('next/dist/next-server/server/config').NextConfig}
+ * @type {import('next').NextConfig}
  **/
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   eslint: {
-    dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
+    dirs: ['app', 'pages', 'components', 'lib', 'layouts', 'scripts'],
   },
   async headers() {
     return [
@@ -68,6 +68,9 @@ module.exports = withBundleAnalyzer({
         headers: securityHeaders,
       },
     ]
+  },
+  images: {
+    formats: ['image/avif', 'image/webp'],
   },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
@@ -87,16 +90,6 @@ module.exports = withBundleAnalyzer({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
-
-    if (!dev && !isServer) {
-      // Replace React with Preact only in client production build
-      Object.assign(config.resolve.alias, {
-        'react/jsx-runtime.js': 'preact/compat/jsx-runtime',
-        react: 'preact/compat',
-        'react-dom/test-utils': 'preact/test-utils',
-        'react-dom': 'preact/compat',
-      })
-    }
 
     return config
   },

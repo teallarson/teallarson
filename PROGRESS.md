@@ -114,9 +114,10 @@
 - ✅ Accessibility audit (skip-to-content, ARIA labels, keyboard navigation)
 
 ### Phase 2: App Router Migration (Week 4)
-- [ ] Migrate homepage to App Router
-- [ ] Migrate blog pages to App Router
-- [ ] Server Components implementation
+- ✅ Migrate homepage to App Router
+- ✅ Migrate blog pages to App Router
+- ✅ Server Components implementation
+- ⚠️ **Node.js upgrade required** (v15 → v18+) before running
 
 ### Phase 2: Interactive Features (Week 4-5)
 - [ ] Code playground integration
