@@ -1,10 +1,10 @@
 const talksData = [
   {
     title: 'Staying Compliant in the World of AI | Move(data) 2025',
-    date: '03-01-2025', 
+    date: '03-20-2025', 
     description: 'Join Teal Larson, a software engineer at Airbyte, as she delves into staying compliant in AI using Airbyte mappings. Learn about the evolution of data movement from ETL to ELT, and how AI is transforming data processing for compliance and security. Discover how Airbyte mappings can help you hash, encrypt, and filter sensitive data before it reaches its destination, ensuring compliance without adding extra tools. Perfect for anyone looking to refine data movements in AI-driven projects.', // TODO: Update with actual description
     imgSrc: '/static/images/talks/2025-03-20-staying-compliant-in-ai.png',
-    href: 'https://www.youtube.com/watch?v=M2ngk4K8-dU&t=238s',
+    href: 'https://www.youtube.com/watch?si=TMiNlBdAy6XtbiW2&v=M2ngk4K8-dU',
   },  
   {
     title: 'Open Source Powers the Modern Data Stack (WITCON Pgh 2022)', 

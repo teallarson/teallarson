@@ -60,32 +60,16 @@ export default async function Home() {
 
   return (
     <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
+      <div className="divide-y divide-gray-200 dark:divide-gray-700 hotdog:divide-black">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <div className="flex flex-row">
-            <div className="relative">
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-primary-500 via-primary-400 to-primary-600 opacity-80 blur-xl animate-pulse"></div>
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 opacity-60 blur-md"></div>
-              <div className="relative rounded-full ring-4 ring-primary-500/50">
-                <Image src={author.avatar} alt={author.name} width={198} height={251} className="rounded-full" />
-              </div>
-            </div>
-            <div className="prose ml-6 mb-1 max-w-none self-end text-gray-500 dark:text-gray-400">
-              Teal Larson.
-              <br />
-              <br />
-            </div>
-          </div>
-        </div>
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="gradient-text-viewport text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          <h1 className="gradient-text-viewport text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 hotdog:border-4 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:bg-none hotdog:p-4 hotdog:text-black hotdog:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             Latest
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400 hotdog:text-black">
             {siteMetadata.description}
           </p>
         </div>
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+        <ul className="divide-y divide-gray-200 dark:divide-gray-700 hotdog:divide-black">
           {allItems.length === 0 && 'No items found.'}
           {allItems.map((item, index) => {
             const { date } = item.data
@@ -101,11 +85,11 @@ export default async function Home() {
                   <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                     <dl>
                       <dt className="sr-only">{item.type === 'post' ? 'Published on' : item.type === 'talk' ? 'Date' : 'Date'}</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400 hotdog:text-black">
                         <time dateTime={date}>{formatDate(date)}</time>
                         <Link
                           href={item.type === 'post' ? '/blog' : item.type === 'talk' ? '/talks' : '/projects'}
-                          className="ml-3 text-xs uppercase text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                          className="ml-3 text-xs uppercase text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 hotdog:border hotdog:border-black hotdog:bg-[#FFFF00] hotdog:px-1 hotdog:text-black hotdog:hover:bg-black hotdog:hover:text-[#FFFF00]"
                         >
                           {item.type}
                         </Link>
@@ -119,7 +103,7 @@ export default async function Home() {
                               <>
                                 <Link
                                   href={`/blog/${item.data.slug}`}
-                                  className="text-gray-900 transition-all hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
+                                  className="text-gray-900 transition-all hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400 hotdog:font-bold hotdog:text-black hotdog:underline hotdog:decoration-2 hotdog:hover:bg-[#FFFF00] hotdog:hover:text-black"
                                 >
                                   {item.data.title}
                                 </Link>
@@ -134,7 +118,7 @@ export default async function Home() {
                                 href={item.data.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-gray-900 transition-all hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
+                                className="text-gray-900 transition-all hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400 hotdog:font-bold hotdog:text-black hotdog:underline hotdog:decoration-2 hotdog:hover:bg-[#FFFF00] hotdog:hover:text-black"
                               >
                                 {item.data.title}
                               </Link>
@@ -143,14 +127,14 @@ export default async function Home() {
                                 href={item.data.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-gray-900 transition-all hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
+                                className="text-gray-900 transition-all hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400 hotdog:font-bold hotdog:text-black hotdog:underline hotdog:decoration-2 hotdog:hover:bg-[#FFFF00] hotdog:hover:text-black"
                               >
                                 {item.data.title}
                               </Link>
                             )}
                           </h2>
                         </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                        <div className="prose max-w-none text-gray-500 dark:text-gray-400 hotdog:text-black">
                           {item.type === 'post' && item.data.summary}
                           {item.type === 'project' && item.data.description}
                           {item.type === 'talk' && item.data.description}
@@ -160,26 +144,26 @@ export default async function Home() {
                         {item.type === 'post' ? (
                           <Link
                             href={`/blog/${item.data.slug}`}
-                            className="shimmer-hover link-modern-hover inline-flex items-center gap-1 transition-all hover:translate-x-1"
+                            className="shimmer-hover link-modern-hover inline-flex items-center gap-1 transition-all hover:translate-x-1 hotdog:rounded-sm hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:px-3 hotdog:py-1 hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hotdog:hover:translate-x-0 hotdog:hover:bg-black"
                             aria-label={`Read "${item.data.title}"`}
                           >
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300">
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">
                               Read more
                             </span>
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400">&rarr;</span>
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">&rarr;</span>
                           </Link>
                         ) : (
                           <Link
                             href={item.data.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="shimmer-hover link-modern-hover inline-flex items-center gap-1 transition-all hover:translate-x-1"
+                            className="shimmer-hover link-modern-hover inline-flex items-center gap-1 transition-all hover:translate-x-1 hotdog:rounded-sm hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:px-3 hotdog:py-1 hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hotdog:hover:translate-x-0 hotdog:hover:bg-black"
                             aria-label={`View ${item.data.title}`}
                           >
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300">
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">
                               {item.type === 'project' ? 'View project' : 'Watch talk'}
                             </span>
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400">&rarr;</span>
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">&rarr;</span>
                           </Link>
                         )}
                       </div>

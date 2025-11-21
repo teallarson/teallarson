@@ -21,6 +21,7 @@ const Pre = ({ children }: Props) => {
 
   return (
     <div ref={textInput} onMouseEnter={onEnter} onMouseLeave={onExit} className="relative">
+      
 
       <pre>{children}</pre>
     </div>

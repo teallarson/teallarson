@@ -15,6 +15,7 @@ module.exports = {
     './layouts/**/*.tsx',
     './lib/**/*.ts',
     './data/**/*.mdx',
+    './app/**/*.tsx',
   ],
   darkMode: 'class',
   theme: {
@@ -180,8 +181,89 @@ module.exports = {
             },
           },
         },
+        hotdog: {
+          css: {
+            color: '#000000',
+            a: {
+              color: '#000000',
+              textDecoration: 'underline',
+              '&:hover': {
+                color: '#FFFF00 !important',
+                backgroundColor: '#000000',
+              },
+              code: { color: '#000000', backgroundColor: '#FFFF00' },
+            },
+            h1: {
+              fontWeight: '700',
+              letterSpacing: theme('letterSpacing.tight'),
+              color: '#000000',
+              backgroundColor: '#FFFF00',
+              padding: '0.5rem',
+            },
+            h2: {
+              fontWeight: '700',
+              letterSpacing: theme('letterSpacing.tight'),
+              color: '#000000',
+              backgroundColor: '#FFFF00',
+              padding: '0.5rem',
+            },
+            h3: {
+              fontWeight: '600',
+              color: '#000000',
+              backgroundColor: '#FFFF00',
+              padding: '0.25rem',
+            },
+            'h4,h5,h6': {
+              color: '#000000',
+            },
+            pre: {
+              backgroundColor: '#000000',
+              color: '#FFFF00',
+            },
+            code: {
+              color: '#000000',
+              backgroundColor: '#FFFF00',
+            },
+            details: {
+              backgroundColor: '#FFFF00',
+              color: '#000000',
+            },
+            hr: { borderColor: '#000000' },
+            'ol li::marker': {
+              fontWeight: '600',
+              color: '#000000',
+            },
+            'ul li::marker': {
+              backgroundColor: '#000000',
+            },
+            strong: { color: '#000000', fontWeight: '900' },
+            thead: {
+              th: {
+                color: '#000000',
+                backgroundColor: '#FFFF00',
+              },
+            },
+            tbody: {
+              tr: {
+                borderBottomColor: '#000000',
+              },
+            },
+            blockquote: {
+              color: '#000000',
+              backgroundColor: '#FFFF00',
+              borderLeftColor: '#000000',
+              borderLeftWidth: '4px',
+            },
+          },
+        },
       }),
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'), 
+    require('@tailwindcss/typography'),
+    function ({ addVariant }) {
+      addVariant('hotdog', '.hotdog &')
+    },
+  ],
 }
