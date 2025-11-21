@@ -3,12 +3,12 @@ import '@/css/prism.css'
 import 'katex/dist/katex.css'
 import '@fontsource/inter'
 
-import { ThemeProvider } from 'next-themes'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import LayoutWrapper from '@/components/LayoutWrapper'
 import { ClientReload } from '@/components/ClientReload'
 import { PostHogProvider } from '@/components/PostHogProvider'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
