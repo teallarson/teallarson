@@ -3,6 +3,7 @@
 /* eslint-disable react/display-name */
 import React, { useMemo } from 'react'
 import { getMDXComponent } from 'mdx-bundler/client'
+import * as _jsx_runtime from 'react/jsx-runtime'
 import Image from './Image'
 import ImageLightbox from './ImageLightbox'
 import CustomLink from './Link'
@@ -28,7 +29,13 @@ interface Props {
 }
 
 export const MDXContent = ({ mdxSource, ...rest }: Props) => {
-  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
+  const Component = useMemo(() => {
+    // Provide React as a global for the MDX bundle
+    return getMDXComponent(mdxSource, {
+      React,
+      _jsx_runtime,
+    })
+  }, [mdxSource])
 
-  return <MDXLayout components={MDXComponents} {...rest} />
+  return <Component components={MDXComponents} {...rest} />
 }

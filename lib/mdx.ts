@@ -88,6 +88,14 @@ export async function getFileBySlug(type: 'authors' | 'blog', slug: string | str
         ...options.loader,
         '.js': 'jsx',
       }
+      // Mark React and React-DOM as external to avoid bundling them
+      options.external = [
+        ...(options.external || []),
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+      ]
       return options
     },
   })
@@ -126,8 +134,8 @@ export async function getAllFilesFrontMatter(folder: 'blog') {
       allFrontMatter.push({
         ...frontmatter,
         slug: formatSlug(fileName),
-        date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
-      })
+        date: frontmatter.date ? new Date(frontmatter.date).toISOString() : new Date().toISOString(),
+      } as PostFrontMatter)
     }
   })
 

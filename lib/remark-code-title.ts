@@ -1,4 +1,4 @@
-import { Parent } from 'unist'
+import type { Parent } from 'unist'
 import { visit } from 'unist-util-visit'
 
 export default function remarkCodeTitles() {
@@ -13,13 +13,13 @@ export default function remarkCodeTitles() {
         title = nodeLang.slice(nodeLang.search(':') + 1, nodeLang.length)
       }
 
-      if (!title) {
+      if (!title || index === undefined) {
         return
       }
 
       const className = 'remark-code-title'
 
-      const titleNode = {
+      const titleNode: any = {
         type: 'mdxJsxFlowElement',
         name: 'div',
         attributes: [{ type: 'mdxJsxAttribute', name: 'className', value: className }],
