@@ -64,8 +64,8 @@ export default async function Home() {
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <div className="flex flex-row">
             <div className="relative">
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-primary-500 via-primary-400 to-primary-600 opacity-80 blur-xl animate-pulse hotdog:from-yellow-300 hotdog:via-red-600 hotdog:to-black hotdog:opacity-90"></div>
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 opacity-60 blur-md hotdog:from-red-600 hotdog:via-yellow-300 hotdog:to-red-600 hotdog:opacity-70"></div>
+              <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-primary-500 via-primary-400 to-primary-600 opacity-80 blur-xl animate-pulse hotdog:hidden"></div>
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 opacity-60 blur-md hotdog:hidden"></div>
               <div className="relative rounded-full ring-4 ring-primary-500/50 hotdog:ring-0">
                 <Image src={author.avatar} alt={author.name} width={198} height={251} className="rounded-full" />
               </div>
