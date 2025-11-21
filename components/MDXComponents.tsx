@@ -2,7 +2,7 @@
 
 /* eslint-disable react/display-name */
 import React, { useMemo } from 'react'
-import { ComponentMap, getMDXComponent } from 'mdx-bundler/client'
+import { getMDXComponent } from 'mdx-bundler/client'
 import Image from './Image'
 import ImageLightbox from './ImageLightbox'
 import CustomLink from './Link'
@@ -11,7 +11,7 @@ import Pre from './Pre'
 import Collapsible from './Collapsible'
 
 // Remove wrapper from MDXComponents - layouts will be handled outside
-export const MDXComponents: ComponentMap = {
+export const MDXComponents = {
   Image: ImageLightbox, // Use ImageLightbox for all images in MDX (click to view larger)
   img: ImageLightbox, // Also handle regular img tags
   //@ts-ignore
