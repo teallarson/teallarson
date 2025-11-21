@@ -58,9 +58,8 @@ const securityHeaders = [
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  eslint: {
-    dirs: ['app', 'components', 'lib', 'layouts', 'scripts'],
-  },
+  // Turbopack is default in Next.js 16 - add empty config to silence warning
+  turbopack: {},
   async headers() {
     return [
       {
@@ -72,6 +71,8 @@ module.exports = withBundleAnalyzer({
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  // Webpack config - only used when --webpack flag is passed
+  // Turbopack handles most of this automatically
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|mp4)$/i,
