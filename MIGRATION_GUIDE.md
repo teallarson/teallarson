@@ -3,7 +3,7 @@
 ## ✅ Completed Migration Steps
 
 ### 1. Dependencies Updated
-- ✅ Next.js: 12.0.9 → 15.0.0
+- ✅ Next.js: 12.0.9 → 16.0.3
 - ✅ React: 17.0.2 → 18.3.1
 - ✅ React DOM: 17.0.2 → 18.3.1
 - ✅ TypeScript: 4.6.1-rc → 5.3.0
@@ -35,7 +35,7 @@
 ## ⚠️ Required: Node.js Upgrade
 
 **Current Node.js**: v15.14.0  
-**Required**: Node.js 18.18.0 or higher (Node.js 22 recommended)
+**Required**: Node.js 20.9.0 or higher (Node.js 22 recommended) - Next.js 16 requirement
 
 ### Upgrade Steps:
 
