@@ -17,7 +17,7 @@ module.exports = {
     './data/**/*.mdx',
     './app/**/*.tsx',
   ],
-  darkMode: ['class', '[class~="dark"]'],
+  darkMode: 'class',
   theme: {
     extend: {
       spacing: {
@@ -259,5 +259,11 @@ module.exports = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'), 
+    require('@tailwindcss/typography'),
+    function ({ addVariant }) {
+      addVariant('hotdog', '.hotdog &')
+    },
+  ],
 }
