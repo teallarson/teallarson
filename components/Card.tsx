@@ -14,10 +14,10 @@ const Card = ({ title, description, imgSrc, href, linkText }: CardProps) => (
     <div
       className={`${
         imgSrc && 'h-full'
-      } relative overflow-hidden rounded-xl border-2 border-gray-200 shadow-soft transition-all duration-300 hover:scale-[1.02] hover:border-primary-500 hover:shadow-glow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500`}
+      } relative overflow-hidden rounded-xl border-2 border-gray-200 shadow-soft transition-all duration-300 hover:scale-[1.02] hover:border-primary-500 hover:shadow-glow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500 hotdog:border-black hotdog:bg-yellow-300 hotdog:hover:border-yellow-300 hotdog:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.8)]`}
     >
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/0 via-primary-400/0 to-primary-600/0 transition-opacity duration-300 group-hover:from-primary-500/20 group-hover:via-primary-400/15 group-hover:to-primary-600/20 dark:group-hover:from-primary-500/30 dark:group-hover:via-primary-400/20 dark:group-hover:to-primary-600/30"></div>
-      <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary-500 via-primary-400 to-primary-600 opacity-0 blur transition-opacity duration-300 group-hover:opacity-30 dark:group-hover:opacity-40"></div>
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/0 via-primary-400/0 to-primary-600/0 transition-opacity duration-300 group-hover:from-primary-500/20 group-hover:via-primary-400/15 group-hover:to-primary-600/20 dark:group-hover:from-primary-500/30 dark:group-hover:via-primary-400/20 dark:group-hover:to-primary-600/30 hotdog:from-red-600/0 hotdog:via-yellow-300/0 hotdog:to-black/0 hotdog:group-hover:from-red-600/40 hotdog:group-hover:via-yellow-300/20 hotdog:group-hover:to-black/40"></div>
+      <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-primary-500 via-primary-400 to-primary-600 opacity-0 blur transition-opacity duration-300 group-hover:opacity-30 dark:group-hover:opacity-40 hotdog:from-black hotdog:via-red-600 hotdog:to-black hotdog:group-hover:opacity-60"></div>
       {imgSrc &&
         (href ? (
           <Link href={href} aria-label={`Link to ${title}`}>
@@ -59,7 +59,7 @@ const Card = ({ title, description, imgSrc, href, linkText }: CardProps) => (
             <span className="gradient-text-viewport">{title}</span>
           )}
         </h2>
-        <p className="prose mb-3 max-w-none text-gray-600 dark:text-gray-300">{description}</p>
+        <p className="prose mb-3 max-w-none text-gray-600 dark:text-gray-300 hotdog:text-black">{description}</p>
         {href && (
           <Link
             href={href}

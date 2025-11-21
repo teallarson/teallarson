@@ -32,8 +32,14 @@ input:-webkit-autofill:focus {
   html {
     @apply font-mono bg-white dark:bg-gray-900;
   }
+  html.hotdog {
+    @apply bg-red-600;
+  }
   body {
     @apply bg-white dark:bg-gray-900;
+  }
+  body.hotdog {
+    @apply bg-red-600 text-black;
   }
 }
 
@@ -164,5 +170,43 @@ input:-webkit-autofill:focus {
   .dark .link-modern-hover:hover {
     color: rgb(153 246 228);
     text-shadow: 0 0 8px rgba(153, 246, 228, 0.4);
+  }
+  
+  /* Hotdog Stand Theme Styles */
+  .hotdog .gradient-text-viewport {
+    background: linear-gradient(
+      to right,
+      rgb(255 0 0) 0%,
+      rgb(255 255 0) 20%,
+      rgb(255 255 0) 50%,
+      rgb(255 255 0) 80%,
+      rgb(255 0 0) 100%
+    );
+    background-size: 300vw 100%;
+    background-position: left center;
+    background-attachment: fixed;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  .hotdog .gradient-bg-viewport {
+    background: linear-gradient(
+      to right,
+      rgb(255 0 0) 0%,
+      rgb(255 255 0) 20%,
+      rgb(255 255 0) 50%,
+      rgb(255 255 0) 80%,
+      rgb(255 0 0) 100%
+    );
+    background-size: 300vw 100%;
+    background-position: left center;
+    background-attachment: fixed;
+  }
+  
+  .hotdog .link-modern-hover:hover {
+    color: rgb(255 255 0);
+    text-shadow: 0 0 8px rgba(255, 255, 0, 0.6);
   }
 }

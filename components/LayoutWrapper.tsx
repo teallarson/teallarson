@@ -16,7 +16,7 @@ const LayoutWrapper = ({ children }: Props) => {
     <SectionContainer>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary-600 focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary-600 focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hotdog:bg-yellow-300 hotdog:text-black hotdog:ring-black"
       >
         Skip to main content
       </a>
@@ -41,7 +41,7 @@ const LayoutWrapper = ({ children }: Props) => {
                 <Link
                   key={link.title}
                   href={link.href}
-                  className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text p-1 font-medium text-transparent transition-all hover:from-primary-500 hover:via-primary-500 hover:to-primary-500 hover:bg-clip-text dark:from-gray-100 dark:via-gray-300 dark:to-gray-100 dark:hover:from-primary-400 dark:hover:via-primary-400 dark:hover:to-primary-400 sm:p-4"
+                  className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text p-1 font-medium text-transparent transition-all hover:from-primary-500 hover:via-primary-500 hover:to-primary-500 hover:bg-clip-text dark:from-gray-100 dark:via-gray-300 dark:to-gray-100 dark:hover:from-primary-400 dark:hover:via-primary-400 dark:hover:to-primary-400 hotdog:from-black hotdog:via-black hotdog:to-black hotdog:hover:from-yellow-300 hotdog:hover:via-yellow-300 hotdog:hover:to-yellow-300 sm:p-4"
                 >
                   {link.title}
                 </Link>

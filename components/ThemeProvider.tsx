@@ -13,7 +13,8 @@ export function ThemeProvider({ children }: Props) {
     <NextThemesProvider 
       attribute="class" 
       defaultTheme={siteMetadata.theme}
-      enableSystem={true}
+      themes={['light', 'dark', 'hotdog']}
+      enableSystem={false}
       disableTransitionOnChange={false}
     >
       {children}
