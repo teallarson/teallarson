@@ -22,27 +22,29 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { tag: string }
+  params: Promise<{ tag: string }>
 }): Promise<Metadata> {
+  const { tag } = await params
   const tags = await getAllTags('blog')
-  if (!tags[params.tag]) {
+  if (!tags[tag]) {
     notFound()
   }
 
   return {
-    title: `${params.tag} - ${siteMetadata.title}`,
-    description: `${params.tag} tags - ${siteMetadata.author}`,
+    title: `${tag} - ${siteMetadata.title}`,
+    description: `${tag} tags - ${siteMetadata.author}`,
   }
 }
 
 export default async function TagPage({
   params,
 }: {
-  params: { tag: string }
+  params: Promise<{ tag: string }>
 }) {
+  const { tag } = await params
   const allPosts = await getAllFilesFrontMatter('blog')
   const filteredPosts = allPosts.filter(
-    (post) => post.draft !== true && post.tags.map((t) => kebabCase(t)).includes(params.tag)
+    (post) => post.draft !== true && post.tags.map((t) => kebabCase(t)).includes(tag)
   )
 
   if (filteredPosts.length === 0) {
@@ -51,14 +53,14 @@ export default async function TagPage({
 
   // Generate RSS
   if (filteredPosts.length > 0) {
-    const rss = generateRss(filteredPosts, `tags/${params.tag}/feed.xml`)
-    const rssPath = path.join(root, 'public', 'tags', params.tag)
+    const rss = generateRss(filteredPosts, `tags/${tag}/feed.xml`)
+    const rssPath = path.join(root, 'public', 'tags', tag)
     fs.mkdirSync(rssPath, { recursive: true })
     fs.writeFileSync(path.join(rssPath, 'feed.xml'), rss)
   }
 
   // Capitalize first letter and convert space to dash
-  const title = params.tag[0].toUpperCase() + params.tag.split(' ').join('-').slice(1)
+  const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)
 
   return <ListLayout posts={filteredPosts} title={title} />
 }

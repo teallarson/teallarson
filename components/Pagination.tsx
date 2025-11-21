@@ -18,8 +18,8 @@ export default function Pagination({ totalPages, currentPage }: Props) {
           </button>
         )}
         {prevPage && (
-          <Link href={currentPage - 1 === 1 ? `/blog/` : `/blog/page/${currentPage - 1}`}>
-            <button>Previous</button>
+          <Link href={currentPage - 1 === 1 ? `/blog/` : `/blog/page/${currentPage - 1}`} className="inline-block rounded-md bg-primary-600 px-4 py-2 text-white transition-colors hover:bg-primary-700">
+            Previous
           </Link>
         )}
         <span>
@@ -31,8 +31,8 @@ export default function Pagination({ totalPages, currentPage }: Props) {
           </button>
         )}
         {nextPage && (
-          <Link href={`/blog/page/${currentPage + 1}`}>
-            <button>Next</button>
+          <Link href={`/blog/page/${currentPage + 1}`} className="inline-block rounded-md bg-primary-600 px-4 py-2 text-white transition-colors hover:bg-primary-700">
+            Next
           </Link>
         )}
       </nav>

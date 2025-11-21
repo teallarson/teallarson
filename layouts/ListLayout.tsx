@@ -1,3 +1,5 @@
+'use client'
+
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import { ComponentProps, useState } from 'react'
@@ -26,7 +28,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
     <>
       <div className="divide-y">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          <h1 className="gradient-text-viewport text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             {title}
           </h1>
           <div className="relative max-w-lg">
@@ -36,7 +38,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search articles by title, tags, or content..."
-              className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-3 pr-10 text-gray-900 shadow-sm transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-20 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-primary-500"
+              className="block w-full rounded-lg border border-gray-300  px-4 py-3 pr-10 text-gray-900 shadow-sm transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-20 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-primary-500"
             />
             <svg
               className="absolute right-3 top-3.5 h-5 w-5 text-gray-400 dark:text-gray-400"
@@ -98,21 +100,30 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
             const { slug, date, title, summary, tags } = frontMatter
             return (
               <li key={slug} className="py-6 transition-opacity hover:opacity-80">
-                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:gap-6 xl:space-y-0">
                   <dl>
                     <dt className="sr-only">Published on</dt>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                       <time dateTime={date}>{formatDate(date)}</time>
+                      <Link
+                        href="/blog"
+                        className="ml-3 text-xs uppercase text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                      >
+                        post
+                      </Link>
                     </dd>
                   </dl>
                   <div className="space-y-3 xl:col-span-3">
                     <div>
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                        <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
+                        <Link
+                          href={`/blog/${slug}`}
+                          className="text-gray-900 transition-all hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
+                        >
                           {title}
                         </Link>
                       </h3>
-                      <div className="flex flex-wrap">
+                      <div className="mt-3 flex flex-wrap">
                         {tags.map((tag) => (
                           <Tag key={tag} text={tag} />
                         ))}

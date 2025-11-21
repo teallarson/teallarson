@@ -1,7 +1,6 @@
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
-import { BlogSEO } from '@/components/SEO'
 import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
@@ -42,11 +41,6 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
   return (
     <SectionContainer>
       <ReadingProgress />
-      <BlogSEO
-        url={postUrl}
-        authorDetails={authorDetails}
-        {...frontMatter}
-      />
       <ScrollTopAndComment />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
@@ -91,8 +85,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       {author.avatar && (
                         <Image
                           src={author.avatar}
-                          width="38px"
-                          height="38px"
+                          width={38}
+                          height={38}
                           alt="avatar"
                           className="h-10 w-10 rounded-full"
                         />
@@ -140,10 +134,12 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       <Link
                         key={relatedPost.slug}
                         href={`/blog/${relatedPost.slug}`}
-                        className="group rounded-lg border border-gray-200 bg-white p-6 transition-all hover:border-primary-500 hover:shadow-soft dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500"
+                        className="shimmer-hover group relative rounded-lg border-2 border-gray-200 p-6 transition-all hover:border-primary-500 hover:shadow-glow dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500"
                       >
-                        <h3 className="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
-                          {relatedPost.title}
+                        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary-500/0 via-primary-400/0 to-primary-600/0 transition-opacity duration-300 group-hover:from-primary-500/20 group-hover:via-primary-400/15 group-hover:to-primary-600/20 dark:group-hover:from-primary-500/30 dark:group-hover:via-primary-400/20 dark:group-hover:to-primary-600/30"></div>
+                        <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-primary-500 via-primary-400 to-primary-600 opacity-0 blur transition-opacity duration-300 group-hover:opacity-30 dark:group-hover:opacity-40"></div>
+                        <h3 className="relative mb-2 text-lg font-semibold transition-all group-hover:opacity-80">
+                          <span className="gradient-text-viewport">{relatedPost.title}</span>
                         </h3>
                         {relatedPost.summary && (
                           <p className="mb-3 text-sm text-gray-600 line-clamp-2 dark:text-gray-300">
@@ -202,7 +198,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         </h2>
                         <Link
                           href={`/blog/${prev.slug}`}
-                          className="text-base font-medium text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                          className="shimmer-hover link-modern-hover bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-base font-medium text-transparent transition-all hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 hover:translate-x-1 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300"
                         >
                           {prev.title}
                         </Link>
@@ -215,7 +211,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         </h2>
                         <Link
                           href={`/blog/${next.slug}`}
-                          className="text-base font-medium text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                          className="shimmer-hover link-modern-hover bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-base font-medium text-transparent transition-all hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 hover:translate-x-1 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300"
                         >
                           {next.title}
                         </Link>
@@ -227,10 +223,12 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               <div className="pt-4 xl:pt-8">
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-2 text-base font-medium text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                  className="shimmer-hover link-modern-hover inline-flex items-center gap-2 text-base font-medium transition-all hover:translate-x-[-4px]"
                 >
-                  <span>&larr;</span>
-                  <span>Back to the blog</span>
+                  <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400">&larr;</span>
+                  <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300">
+                    Back to the blog
+                  </span>
                 </Link>
               </div>
             </footer>

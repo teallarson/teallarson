@@ -1,7 +1,8 @@
 import fs from 'fs'
+import React from 'react'
 import PageTitle from '@/components/PageTitle'
 import generateRss from '@/lib/generate-rss'
-import { MDXLayoutRenderer } from '@/components/MDXComponents'
+import { MDXContent } from '@/components/MDXComponents'
 import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx'
 import { getRelatedPosts } from '@/lib/utils/relatedPosts'
 import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
@@ -10,6 +11,9 @@ import { Toc } from 'types/Toc'
 import siteMetadata from '@/data/siteMetadata'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import PostLayout from '@/layouts/PostLayout'
+import AuthorLayout from '@/layouts/AuthorLayout'
+import PostSimple from '@/layouts/PostSimple'
 
 const DEFAULT_LAYOUT = 'PostLayout'
 
@@ -23,9 +27,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string[] }
+  params: Promise<{ slug: string[] }>
 }): Promise<Metadata> {
-  const slug = params.slug.join('/')
+  const { slug: slugArray } = await params
+  const slug = slugArray.join('/')
   const post = await getFileBySlug('blog', slug)
 
   if (!post || ('draft' in post.frontMatter && post.frontMatter.draft === true)) {
@@ -61,9 +66,10 @@ export async function generateMetadata({
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string[] }
+  params: Promise<{ slug: string[] }>
 }) {
-  const slug = params.slug.join('/')
+  const { slug: slugArray } = await params
+  const slug = slugArray.join('/')
   const allPosts = await getAllFilesFrontMatter('blog')
   const postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === slug)
   const prev: { slug: string; title: string } | null = allPosts[postIndex + 1] || null
@@ -92,20 +98,38 @@ export default async function BlogPostPage({
     fs.writeFileSync('./public/feed.xml', rss)
   }
 
+  const layoutName = frontMatter.layout || DEFAULT_LAYOUT
+  
+  // Select the layout component
+  let LayoutComponent: React.ComponentType<any>
+  switch (layoutName) {
+    case 'PostLayout':
+      LayoutComponent = PostLayout
+      break
+    case 'AuthorLayout':
+      LayoutComponent = AuthorLayout
+      break
+    case 'PostSimple':
+      LayoutComponent = PostSimple
+      break
+    default:
+      LayoutComponent = PostLayout
+  }
+
   return (
     <>
       {'draft' in frontMatter && frontMatter.draft !== true ? (
-        <MDXLayoutRenderer
-          layout={frontMatter.layout || DEFAULT_LAYOUT}
+        <LayoutComponent
           toc={toc}
-          mdxSource={mdxSource}
           frontMatter={frontMatter}
           authorDetails={authorDetails}
           prev={prev}
           next={next}
           relatedPosts={relatedPosts}
           allPosts={allPosts}
-        />
+        >
+          <MDXContent mdxSource={mdxSource} />
+        </LayoutComponent>
       ) : (
         <div className="mt-24 text-center">
           <PageTitle>

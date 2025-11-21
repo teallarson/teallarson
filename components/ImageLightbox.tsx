@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import NextImage, { ImageProps } from 'next/image'
 
@@ -77,7 +79,7 @@ export default function ImageLightbox({ src, alt, width, height, className = '',
         >
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute right-4 top-4 rounded-full bg-white bg-opacity-10 p-2 text-white transition-colors hover:bg-opacity-20"
+            className="absolute right-4 top-4 rounded-full bg-opacity-10 p-2 text-white transition-colors hover:bg-opacity-20"
             aria-label="Close image lightbox"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -16,10 +16,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { page: string }
+  params: Promise<{ page: string }>
 }): Promise<Metadata> {
+  const { page } = await params
   return {
-    title: `Blog - Page ${params.page} - ${siteMetadata.author}`,
+    title: `Blog - Page ${page} - ${siteMetadata.author}`,
     description: siteMetadata.description,
   }
 }
@@ -27,10 +28,11 @@ export async function generateMetadata({
 export default async function BlogPagePage({
   params,
 }: {
-  params: { page: string }
+  params: Promise<{ page: string }>
 }) {
+  const { page } = await params
   const posts = await getAllFilesFrontMatter('blog')
-  const pageNumber = parseInt(params.page)
+  const pageNumber = parseInt(page)
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
     POSTS_PER_PAGE * pageNumber

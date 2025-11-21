@@ -54,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth bg-white dark:bg-gray-900" suppressHydrationWarning>
       <head>
         <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
@@ -65,7 +65,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
-      <body className="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
+      <body className="bg-white  dark:bg-gray-900  text-black antialiased dark:text-white min-h-screen">
         <ThemeProvider>
           <PostHogProvider />
           {isDevelopment && isSocket && <ClientReload />}

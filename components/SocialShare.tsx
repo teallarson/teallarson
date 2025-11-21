@@ -1,3 +1,5 @@
+'use client'
+
 import Link from './Link'
 
 interface SocialShareProps {
@@ -73,11 +75,14 @@ export default function SocialShare({ url, title, summary }: SocialShareProps) {
             key={link.name}
             href={link.href}
             onClick={link.onClick}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-300 text-gray-600 transition-colors hover:border-primary-500 hover:bg-primary-50 hover:text-primary-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-primary-500 dark:hover:bg-primary-900/20 dark:hover:text-primary-400"
+            className="group relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border-2 border-gray-300 text-gray-600 transition-all hover:border-primary-500 hover:shadow-glow dark:border-gray-600 dark:text-gray-400 dark:hover:border-primary-500"
             aria-label={`Share on ${link.name}`}
             {...(link.onClick ? { target: '_self', rel: '' } : { target: '_blank', rel: 'noopener noreferrer' })}
           >
-            {link.icon}
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-primary-500 dark:via-primary-400 dark:to-primary-600"></div>
+            <span className="relative z-10 transition-colors group-hover:text-white dark:group-hover:text-white">
+              {link.icon}
+            </span>
           </Link>
         ))}
       </div>

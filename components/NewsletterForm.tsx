@@ -13,27 +13,41 @@ const NewsletterForm = ({ title = 'Subscribe to the newsletter' }) => {
   const subscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const res = await fetch(`/api/${siteMetadata.newsletter.provider}`, {
-      body: JSON.stringify({
-        email: inputEl.current.value,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
+    try {
+      const res = await fetch(`/api/${siteMetadata.newsletter.provider}`, {
+        body: JSON.stringify({
+          email: inputEl.current?.value,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
 
-    const { error } = await res.json()
-    if (error) {
-      setError(true)
-      setMessage('Your e-mail address is invalid or you are already subscribed!')
-      return
+      if (!res.ok) {
+        throw new Error('Failed to subscribe')
+      }
+
+      const { error } = await res.json()
+      if (error) {
+        setError(true)
+        setMessage('Your e-mail address is invalid or you are already subscribed!')
+        return
+      }
+
+      if (inputEl.current) {
+        inputEl.current.value = ''
+      }
+      setError(false)
+      setSubscribed(true)
+      setMessage('Successfully! 🎉 You are now subscribed.')
+    } catch (err) {
+      // Handle abort signals and other errors gracefully
+      if (err instanceof Error && err.name !== 'AbortError') {
+        setError(true)
+        setMessage('Something went wrong. Please try again later.')
+      }
     }
-
-    inputEl.current.value = ''
-    setError(false)
-    setSubscribed(true)
-    setMessage('Successfully! 🎉 You are now subscribed.')
   }
 
   return (

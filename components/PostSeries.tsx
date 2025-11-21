@@ -36,14 +36,14 @@ export default function PostSeries({ series, currentSlug, posts }: PostSeriesPro
               <li key={post.slug}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors ${
+                  className={`shimmer-hover flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-all ${
                     isCurrent
                       ? 'bg-primary-600 text-white dark:bg-primary-500'
-                      : 'text-primary-700 hover:bg-primary-100 dark:text-primary-300 dark:hover:bg-primary-800/40'
+                      : 'text-primary-700 hover:bg-primary-100 hover:text-primary-600 dark:text-primary-300 dark:hover:bg-primary-800/40 dark:hover:text-primary-400'
                   }`}
                   aria-current={isCurrent ? 'page' : undefined}
                 >
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white bg-opacity-20 text-xs font-medium">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-opacity-20 text-xs font-medium">
                     {index + 1}
                   </span>
                   <span className="flex-1">{post.title}</span>

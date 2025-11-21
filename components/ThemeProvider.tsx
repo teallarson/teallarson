@@ -10,7 +10,12 @@ interface Props {
 
 export function ThemeProvider({ children }: Props) {
   return (
-    <NextThemesProvider attribute="class" defaultTheme={siteMetadata.theme}>
+    <NextThemesProvider 
+      attribute="class" 
+      defaultTheme={siteMetadata.theme}
+      enableSystem={true}
+      disableTransitionOnChange={false}
+    >
       {children}
     </NextThemesProvider>
   )

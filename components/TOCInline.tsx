@@ -52,7 +52,7 @@ const TOCInline = ({
         >
           <a
             href={heading.url}
-            className="text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
+            className="shimmer-hover link-modern-hover text-gray-600 transition-all hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400"
           >
             {heading.value}
           </a>
