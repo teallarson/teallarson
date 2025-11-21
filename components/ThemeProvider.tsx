@@ -12,9 +12,9 @@ export function ThemeProvider({ children }: Props) {
   return (
     <NextThemesProvider 
       attribute="class" 
-      defaultTheme={siteMetadata.theme}
+      defaultTheme={siteMetadata.theme === 'hotdog' ? 'light' : siteMetadata.theme}
       themes={['light', 'dark', 'hotdog']}
-      enableSystem={false}
+      enableSystem={true}
       disableTransitionOnChange={false}
     >
       {children}
