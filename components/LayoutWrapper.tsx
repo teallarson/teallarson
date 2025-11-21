@@ -26,7 +26,7 @@ const LayoutWrapper = ({ children }: Props) => {
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
                 {typeof siteMetadata.headerTitle === 'string' ? (
-                  <div className="gradient-text-viewport hidden h-6 text-2xl font-semibold sm:block hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:bg-none hotdog:px-3 hotdog:py-1.5 hotdog:text-black hotdog:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                  <div className="gradient-text-viewport hidden h-6 text-2xl font-semibold sm:block hotdog:bg-none hotdog:text-black">
                     {siteMetadata.headerTitle}
                   </div>
                 ) : (
