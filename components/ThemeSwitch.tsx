@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
@@ -12,14 +14,14 @@ const ThemeSwitch = () => {
     <button
       aria-label="Toggle Dark Mode"
       type="button"
-      className="ml-1 mr-1 h-8 w-8 rounded p-1 sm:ml-4"
+      className="ml-1 mr-1 h-8 w-8 rounded p-1 transition-all duration-300 hover:scale-110 hover:bg-primary-100 dark:hover:bg-primary-900/30 sm:ml-4"
       onClick={() => setTheme(theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark')}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="text-gray-900 dark:text-gray-100"
+        className="text-gray-900 transition-colors duration-300 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
       >
         {mounted && (theme === 'dark' || resolvedTheme === 'dark') ? (
           <path

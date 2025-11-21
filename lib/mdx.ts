@@ -9,7 +9,6 @@ import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
 import { Toc } from 'types/Toc'
 // Remark packages
 import remarkGfm from 'remark-gfm'
-import remarkFootnotes from 'remark-footnotes'
 import remarkMath from 'remark-math'
 import remarkExtractFrontmatter from './remark-extract-frontmatter'
 import remarkCodeTitles from './remark-code-title'
@@ -21,7 +20,6 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeKatex from 'rehype-katex'
 import rehypeCitation from 'rehype-citation'
 import rehypePrismPlus from 'rehype-prism-plus'
-import rehypePresetMinify from 'rehype-preset-minify'
 
 const root = process.cwd()
 
@@ -41,8 +39,7 @@ export function dateSortDesc(a: string, b: string) {
   if (a < b) return 1
   return 0
 }
-//@ts-ignore
-export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | string[]) {
+export async function getFileBySlug(type: 'authors' | 'blog', slug: string | string[]) {
   const mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
   const mdPath = path.join(root, 'data', type, `${slug}.md`)
   const source = fs.existsSync(mdxPath)
@@ -71,9 +68,8 @@ export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | s
         ...(options.remarkPlugins ?? []),
         remarkExtractFrontmatter,
         [remarkTocHeadings, { exportRef: toc }],
-        remarkGfm,
+        remarkGfm, // Includes footnotes support
         remarkCodeTitles,
-        [remarkFootnotes, { inlineNotes: true }],
         remarkMath,
         remarkImgToJsx,
       ]
@@ -84,7 +80,6 @@ export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | s
         rehypeKatex,
         [rehypeCitation, { path: path.join(root, 'data') }],
         [rehypePrismPlus, { ignoreMissing: true }],
-        rehypePresetMinify,
       ]
       return options
     },
@@ -93,6 +88,14 @@ export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | s
         ...options.loader,
         '.js': 'jsx',
       }
+      // Mark React and React-DOM as external to avoid bundling them
+      options.external = [
+        ...(options.external || []),
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+      ]
       return options
     },
   })
@@ -102,11 +105,11 @@ export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | s
     toc,
     frontMatter: {
       readingTime: readingTime(code),
-      slug: slug || null,
-      fileName: fs.existsSync(mdxPath) ? `${slug}.mdx` : `${slug}.md`,
+      slug: Array.isArray(slug) ? slug.join('/') : slug || null,
+      fileName: fs.existsSync(mdxPath) ? `${Array.isArray(slug) ? slug.join('/') : slug}.mdx` : `${Array.isArray(slug) ? slug.join('/') : slug}.md`,
       ...frontmatter,
       date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
-    },
+    } as PostFrontMatter,
   }
 }
 
@@ -131,8 +134,8 @@ export async function getAllFilesFrontMatter(folder: 'blog') {
       allFrontMatter.push({
         ...frontmatter,
         slug: formatSlug(fileName),
-        date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
-      })
+        date: frontmatter.date ? new Date(frontmatter.date).toISOString() : new Date().toISOString(),
+      } as PostFrontMatter)
     }
   })
 

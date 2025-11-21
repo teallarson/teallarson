@@ -1,4 +1,4 @@
-import { Parent, Node, Literal } from 'unist'
+import type { Parent, Node, Literal } from 'unist'
 import { visit } from 'unist-util-visit'
 import sizeOf from 'image-size'
 import fs from 'fs'
@@ -25,18 +25,38 @@ export default function remarkImgToJsx() {
           const dimensions = sizeOf(`${process.cwd()}/public${imageNode.url}`)
 
           // Convert original node to next/image
-          ;(imageNode.type = 'mdxJsxFlowElement'),
-            (imageNode.name = 'Image'),
-            (imageNode.attributes = [
-              { type: 'mdxJsxAttribute', name: 'alt', value: imageNode.alt },
-              { type: 'mdxJsxAttribute', name: 'src', value: imageNode.url },
-              { type: 'mdxJsxAttribute', name: 'width', value: dimensions.width },
-              { type: 'mdxJsxAttribute', name: 'height', value: dimensions.height },
-            ])
+          ;(imageNode as any).type = 'mdxJsxFlowElement'
+          ;(imageNode as any).name = 'Image'
+          ;(imageNode as any).attributes = [
+            { type: 'mdxJsxAttribute', name: 'alt', value: imageNode.alt },
+            { type: 'mdxJsxAttribute', name: 'src', value: imageNode.url },
+            { 
+              type: 'mdxJsxAttribute', 
+              name: 'width', 
+              value: {
+                type: 'mdxJsxAttributeValueExpression',
+                value: String(dimensions.width),
+                data: { estree: { type: 'Literal', value: dimensions.width } }
+              }
+            },
+            { 
+              type: 'mdxJsxAttribute', 
+              name: 'height', 
+              value: {
+                type: 'mdxJsxAttributeValueExpression',
+                value: String(dimensions.height),
+                data: { estree: { type: 'Literal', value: dimensions.height } }
+              }
+            },
+          ]
+          ;(imageNode as any).data = { _xdmExplicitJsx: true }
 
           // Change node type from p to div to avoid nesting error
-          node.type = 'div'
-          node.children = [imageNode]
+          ;(node as any).type = 'mdxJsxFlowElement'
+          ;(node as any).name = 'div'
+          ;(node as any).attributes = []
+          ;(node as any).data = { _xdmExplicitJsx: true }
+          node.children = [imageNode as any]
         }
       }
     )

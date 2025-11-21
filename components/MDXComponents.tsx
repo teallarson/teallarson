@@ -1,36 +1,41 @@
+'use client'
+
 /* eslint-disable react/display-name */
 import React, { useMemo } from 'react'
-import { ComponentMap, getMDXComponent } from 'mdx-bundler/client'
+import { getMDXComponent } from 'mdx-bundler/client'
+import * as _jsx_runtime from 'react/jsx-runtime'
 import Image from './Image'
+import ImageLightbox from './ImageLightbox'
 import CustomLink from './Link'
 import TOCInline from './TOCInline'
 import Pre from './Pre'
-import { BlogNewsletterForm } from './NewsletterForm'
+import Collapsible from './Collapsible'
 
-const Wrapper: React.ComponentType<{ layout: string }> = ({ layout, ...rest }) => {
-  const Layout = require(`../layouts/${layout}`).default
-  return <Layout {...rest} />
-}
-
-export const MDXComponents: ComponentMap = {
-  Image,
+// Remove wrapper from MDXComponents - layouts will be handled outside
+export const MDXComponents = {
+  Image: ImageLightbox, // Use ImageLightbox for all images in MDX (click to view larger)
+  img: ImageLightbox, // Also handle regular img tags
   //@ts-ignore
   TOCInline,
   a: CustomLink,
   pre: Pre,
-  wrapper: Wrapper,
   //@ts-ignore
-  BlogNewsletterForm,
+  Collapsible,
 }
 
 interface Props {
-  layout: string
   mdxSource: string
   [key: string]: unknown
 }
 
-export const MDXLayoutRenderer = ({ layout, mdxSource, ...rest }: Props) => {
-  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource])
+export const MDXContent = ({ mdxSource, ...rest }: Props) => {
+  const Component = useMemo(() => {
+    // Provide React as a global for the MDX bundle
+    return getMDXComponent(mdxSource, {
+      React,
+      _jsx_runtime,
+    })
+  }, [mdxSource])
 
-  return <MDXLayout layout={layout} components={MDXComponents} {...rest} />
+  return <Component components={MDXComponents} {...rest} />
 }

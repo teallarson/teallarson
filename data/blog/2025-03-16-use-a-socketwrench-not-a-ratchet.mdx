@@ -1,0 +1,16 @@
+---
+title: "Don't use a ratchet strap when a ziptie will work."
+date: '2025-03-16'
+tags: ['linting', 'code-chronicles']
+draft: true
+images: ['sdlasdlkfjaslkfj']
+summary: "I can't be the only one who gets panicky when all of a sudden hundreds of unintended file changes end up on their branch."
+---
+
+Recently I read about [Notion's ratcheting system using ESLint rules](https://www.notion.com/blog/how-we-evolved-our-code-notions-ratcheting-system-using-custom-eslint-rules). It's a really interesting article that goes in-depth on how Notion leverages a system involving custom ESLint rules with tracking in DataDog to monitor their progress towards a code architecture or style change while "stopping the bleed" so to speak. They have a wonderfully elaborate system, and it makes the engineering effort tangible to outsiders as well.
+
+But I'd argue that most teams don't need all that. For most teams, their system is like using a full blown ratchet strap where a zip-tie would work just fine.
+
+I love linters. I'm not sure when it started, but I have a real fascination with them. Somewhere along the way, I developed this strongly held belief that <b>human brains are great at solving complex problems, and any problem small enough for a linter to yell at me about is something I shouldn't have to think about</b>. For example, in one project I was on, we kept running into errors where every POST endpoint needed to have a special annotation on the request body or our framework couldn't deserialize it properly. This problem would come up every once in a while, and debugging it was honestly really easy to miss. No software engineer should have to worry about something so petty! So we added a custom PMD rule to our controllers that every POST endpoint must have at least one argument with the necessary annotation. And since then, we haven't seen the problem once.
+
+Another time, I was the second member of a frontend team. The previous webapp had been mostly written by contractors who had
