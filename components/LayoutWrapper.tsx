@@ -26,7 +26,7 @@ const LayoutWrapper = ({ children }: Props) => {
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
                 {typeof siteMetadata.headerTitle === 'string' ? (
-                  <div className="gradient-text-viewport hidden h-6 text-2xl font-semibold sm:block hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:px-4 hotdog:py-2 hotdog:text-black hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hotdog:gradient-text-viewport-none">
+                  <div className="gradient-text-viewport hidden h-6 text-2xl font-semibold sm:block hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:bg-none hotdog:px-4 hotdog:py-2 hotdog:text-black hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
                     {siteMetadata.headerTitle}
                   </div>
                 ) : (
@@ -41,7 +41,7 @@ const LayoutWrapper = ({ children }: Props) => {
                 <Link
                   key={link.title}
                   href={link.href}
-                  className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text p-1 font-medium text-transparent transition-all hover:from-primary-500 hover:via-primary-500 hover:to-primary-500 hover:bg-clip-text dark:from-gray-100 dark:via-gray-300 dark:to-gray-100 dark:hover:from-primary-400 dark:hover:via-primary-400 dark:hover:to-primary-400 hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:from-black hotdog:via-black hotdog:to-black hotdog:px-3 hotdog:py-1 hotdog:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hotdog:hover:bg-black hotdog:hover:from-[#FFFF00] hotdog:hover:via-[#FFFF00] hotdog:hover:to-[#FFFF00] sm:p-4"
+                  className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text p-1 font-medium text-transparent transition-all hover:from-primary-500 hover:via-primary-500 hover:to-primary-500 hover:bg-clip-text dark:from-gray-100 dark:via-gray-300 dark:to-gray-100 dark:hover:from-primary-400 dark:hover:via-primary-400 dark:hover:to-primary-400 hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:bg-none hotdog:px-3 hotdog:py-1 hotdog:text-black hotdog:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hotdog:hover:bg-black hotdog:hover:text-[#FFFF00] sm:p-4"
                 >
                   {link.title}
                 </Link>

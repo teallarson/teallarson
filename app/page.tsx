@@ -62,19 +62,7 @@ export default async function Home() {
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700 hotdog:divide-black">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <div className="flex flex-row">
-            <div className="relative">
-              <Image src={author.avatar} alt={author.name} width={198} height={251} />
-            </div>
-            <div className="prose ml-6 mb-1 max-w-none self-end text-gray-500 dark:text-gray-400 hotdog:text-black">
-              Teal Larson.
-              <br />
-              <br />
-            </div>
-          </div>
-        </div>
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="gradient-text-viewport text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 hotdog:border-4 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:p-4 hotdog:text-black hotdog:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+          <h1 className="gradient-text-viewport text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 hotdog:border-4 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:bg-none hotdog:p-4 hotdog:text-black hotdog:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
             Latest
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400 hotdog:text-black">
@@ -159,10 +147,10 @@ export default async function Home() {
                             className="shimmer-hover link-modern-hover inline-flex items-center gap-1 transition-all hover:translate-x-1 hotdog:rounded-sm hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:px-3 hotdog:py-1 hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hotdog:hover:translate-x-0 hotdog:hover:bg-black"
                             aria-label={`Read "${item.data.title}"`}
                           >
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300 hotdog:text-black hotdog:hover:text-[#FFFF00]">
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">
                               Read more
                             </span>
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 hotdog:text-black hotdog:hover:text-[#FFFF00]">&rarr;</span>
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">&rarr;</span>
                           </Link>
                         ) : (
                           <Link
@@ -172,10 +160,10 @@ export default async function Home() {
                             className="shimmer-hover link-modern-hover inline-flex items-center gap-1 transition-all hover:translate-x-1 hotdog:rounded-sm hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:px-3 hotdog:py-1 hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hotdog:hover:translate-x-0 hotdog:hover:bg-black"
                             aria-label={`View ${item.data.title}`}
                           >
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300 hotdog:text-black hotdog:hover:text-[#FFFF00]">
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">
                               {item.type === 'project' ? 'View project' : 'Watch talk'}
                             </span>
-                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 hotdog:text-black hotdog:hover:text-[#FFFF00]">&rarr;</span>
+                            <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 hotdog:bg-none hotdog:text-black hotdog:hover:text-[#FFFF00]">&rarr;</span>
                           </Link>
                         )}
                       </div>
