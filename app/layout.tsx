@@ -66,7 +66,7 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
-        <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
+        <ThemeProvider>
           <PostHogProvider />
           {isDevelopment && isSocket && <ClientReload />}
           <LayoutWrapper>{children}</LayoutWrapper>
