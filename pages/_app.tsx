@@ -1,7 +1,6 @@
 import '@/css/tailwind.css'
 import '@/css/prism.css'
 import 'katex/dist/katex.css'
-import { usePostHog } from 'next-use-posthog'
 
 import '@fontsource/inter/variable-full.css'
 
@@ -12,17 +11,15 @@ import Head from 'next/head'
 import siteMetadata from '@/data/siteMetadata'
 import LayoutWrapper from '@/components/LayoutWrapper'
 import { ClientReload } from '@/components/ClientReload'
+import { PostHogProvider } from '@/components/PostHogProvider'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 
 export default function App({ Component, pageProps }: AppProps) {
-  usePostHog('phc_j8KjSwgyddIWVle9CCQGwTaxIp14EcdUYzxNoyOGqx7', {
-    api_host: 'https://app.posthog.com',
-  })
-
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
+      <PostHogProvider />
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>

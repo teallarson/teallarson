@@ -9,7 +9,6 @@ import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
 import { Toc } from 'types/Toc'
 // Remark packages
 import remarkGfm from 'remark-gfm'
-import remarkFootnotes from 'remark-footnotes'
 import remarkMath from 'remark-math'
 import remarkExtractFrontmatter from './remark-extract-frontmatter'
 import remarkCodeTitles from './remark-code-title'
@@ -71,9 +70,8 @@ export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | s
         ...(options.remarkPlugins ?? []),
         remarkExtractFrontmatter,
         [remarkTocHeadings, { exportRef: toc }],
-        remarkGfm,
+        remarkGfm, // Includes footnotes support
         remarkCodeTitles,
-        [remarkFootnotes, { inlineNotes: true }],
         remarkMath,
         remarkImgToJsx,
       ]

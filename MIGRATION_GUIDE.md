@@ -56,13 +56,24 @@
    npm --version
    ```
 
-4. **Install dependencies**:
+4. **Install pnpm (recommended for faster installs)**:
    ```bash
+   npm install -g pnpm
+   ```
+
+5. **Install dependencies**:
+   ```bash
+   # Using pnpm (recommended - 3x faster)
+   pnpm install
+   
+   # Or using npm
    npm install
    ```
 
-5. **Test the build**:
+6. **Test the build**:
    ```bash
+   pnpm build
+   # or
    npm run build
    ```
 
