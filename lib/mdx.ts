@@ -39,8 +39,7 @@ export function dateSortDesc(a: string, b: string) {
   if (a < b) return 1
   return 0
 }
-//@ts-ignore
-export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | string[]) {
+export async function getFileBySlug(type: 'authors' | 'blog', slug: string | string[]) {
   const mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
   const mdPath = path.join(root, 'data', type, `${slug}.md`)
   const source = fs.existsSync(mdxPath)
@@ -98,11 +97,11 @@ export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | s
     toc,
     frontMatter: {
       readingTime: readingTime(code),
-      slug: slug || null,
-      fileName: fs.existsSync(mdxPath) ? `${slug}.mdx` : `${slug}.md`,
+      slug: Array.isArray(slug) ? slug.join('/') : slug || null,
+      fileName: fs.existsSync(mdxPath) ? `${Array.isArray(slug) ? slug.join('/') : slug}.mdx` : `${Array.isArray(slug) ? slug.join('/') : slug}.md`,
       ...frontmatter,
       date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
-    },
+    } as PostFrontMatter,
   }
 }
 

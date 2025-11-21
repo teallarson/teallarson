@@ -39,7 +39,7 @@ export async function generateMetadata({
     }
   }
 
-  const { title, summary, images } = post.frontMatter
+  const { title, summary, images } = post.frontMatter as PostFrontMatter
   const featuredImage = images && images.length > 0 ? `${siteMetadata.siteUrl}${images[0]}` : `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`
 
   return {
