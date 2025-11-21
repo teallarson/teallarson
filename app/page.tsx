@@ -62,7 +62,7 @@ export default async function Home() {
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700 hotdog:divide-black">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="gradient-text-viewport text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 hotdog:border-4 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:bg-none hotdog:p-4 hotdog:text-black hotdog:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+          <h1 className="gradient-text-viewport text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 hotdog:border-4 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:bg-none hotdog:p-4 hotdog:text-black hotdog:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             Latest
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400 hotdog:text-black">
