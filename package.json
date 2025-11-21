@@ -20,6 +20,8 @@
     "gray-matter": "^4.0.3",
     "image-size": "^1.0.2",
     "js-yaml": "^4.1.1",
+    "katex": "^0.16.25",
+    "mdast-util-to-string": "^3.2.0",
     "mdx-bundler": "^10.0.0",
     "next": "^16.0.3",
     "next-themes": "^0.2.1",
