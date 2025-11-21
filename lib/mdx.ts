@@ -20,7 +20,6 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeKatex from 'rehype-katex'
 import rehypeCitation from 'rehype-citation'
 import rehypePrismPlus from 'rehype-prism-plus'
-import rehypePresetMinify from 'rehype-preset-minify'
 
 const root = process.cwd()
 
@@ -82,7 +81,6 @@ export async function getFileBySlug<>(type: 'authors' | 'blog', slug: string | s
         rehypeKatex,
         [rehypeCitation, { path: path.join(root, 'data') }],
         [rehypePrismPlus, { ignoreMissing: true }],
-        rehypePresetMinify,
       ]
       return options
     },
