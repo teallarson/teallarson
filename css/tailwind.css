@@ -33,13 +33,14 @@ input:-webkit-autofill:focus {
     @apply font-mono bg-white dark:bg-gray-900;
   }
   html.hotdog {
-    @apply bg-red-600;
+    background-color: #FF0000 !important;
   }
   body {
     @apply bg-white dark:bg-gray-900;
   }
   body.hotdog {
-    @apply bg-red-600 text-black;
+    background-color: #FF0000 !important;
+    color: #000000 !important;
   }
 }
 

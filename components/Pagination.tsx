@@ -18,20 +18,20 @@ export default function Pagination({ totalPages, currentPage }: Props) {
           </button>
         )}
         {prevPage && (
-          <Link href={currentPage - 1 === 1 ? `/blog/` : `/blog/page/${currentPage - 1}`} className="inline-block rounded-md bg-primary-600 px-4 py-2 text-white transition-colors hover:bg-primary-700 hotdog:bg-black hotdog:text-yellow-300 hotdog:hover:bg-yellow-300 hotdog:hover:text-black">
+          <Link href={currentPage - 1 === 1 ? `/blog/` : `/blog/page/${currentPage - 1}`} className="inline-block rounded-md bg-primary-600 px-4 py-2 text-white transition-colors hover:bg-primary-700 hotdog:rounded-sm hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:text-black hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hotdog:hover:bg-black hotdog:hover:text-[#FFFF00]">
             Previous
           </Link>
         )}
-        <span className="hotdog:text-black">
+        <span className="hotdog:font-bold hotdog:text-black">
           {currentPage} of {totalPages}
         </span>
         {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50 hotdog:text-black" disabled={!nextPage}>
+          <button className="cursor-auto disabled:opacity-50 hotdog:font-bold hotdog:text-black" disabled={!nextPage}>
             Next
           </button>
         )}
         {nextPage && (
-          <Link href={`/blog/page/${currentPage + 1}`} className="inline-block rounded-md bg-primary-600 px-4 py-2 text-white transition-colors hover:bg-primary-700 hotdog:bg-black hotdog:text-yellow-300 hotdog:hover:bg-yellow-300 hotdog:hover:text-black">
+          <Link href={`/blog/page/${currentPage + 1}`} className="inline-block rounded-md bg-primary-600 px-4 py-2 text-white transition-colors hover:bg-primary-700 hotdog:rounded-sm hotdog:border-2 hotdog:border-black hotdog:bg-[#FFFF00] hotdog:text-black hotdog:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hotdog:hover:bg-black hotdog:hover:text-[#FFFF00]">
             Next
           </Link>
         )}
