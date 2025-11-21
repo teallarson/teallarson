@@ -175,21 +175,9 @@ input:-webkit-autofill:focus {
   
   /* Hotdog Stand Theme Styles */
   .hotdog .gradient-text-viewport {
-    background: linear-gradient(
-      to right,
-      rgb(255 0 0) 0%,
-      rgb(255 255 0) 20%,
-      rgb(255 255 0) 50%,
-      rgb(255 255 0) 80%,
-      rgb(255 0 0) 100%
-    );
-    background-size: 300vw 100%;
-    background-position: left center;
-    background-attachment: fixed;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    background: none;
+    -webkit-text-fill-color: #000000;
+    color: #000000;
   }
   
   .hotdog .gradient-bg-viewport {

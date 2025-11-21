@@ -89,7 +89,7 @@ export default async function Home() {
                         <time dateTime={date}>{formatDate(date)}</time>
                         <Link
                           href={item.type === 'post' ? '/blog' : item.type === 'talk' ? '/talks' : '/projects'}
-                          className="ml-3 text-xs uppercase text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 hotdog:text-black hotdog:hover:text-yellow-300"
+                          className="ml-3 text-xs uppercase text-primary-600 transition-colors hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 hotdog:border hotdog:border-black hotdog:bg-[#FFFF00] hotdog:px-1 hotdog:text-black hotdog:hover:bg-black hotdog:hover:text-[#FFFF00]"
                         >
                           {item.type}
                         </Link>
