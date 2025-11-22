@@ -1,10 +1,8 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import { getAllFilesFrontMatter, getAuthorFrontMatter } from '@/lib/mdx'
+import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
-import Image from 'next/image'
-import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
 import { PostFrontMatter } from 'types/PostFrontMatter'
 import { Metadata } from 'next'
 import projectsData from '@/data/projectsData'
@@ -13,23 +11,15 @@ import PaginationHome from '@/components/PaginationHome'
 
 const POSTS_PER_PAGE = 10
 
-export const metadata: Metadata = {
-  title: siteMetadata.title,
-  description: siteMetadata.description,
-}
-
-type FeedItem = 
+type FeedItem =
   | { type: 'post'; data: PostFrontMatter }
   | { type: 'project'; data: typeof projectsData[0] & { date: string } }
   | { type: 'talk'; data: typeof talksData[0] }
 
-export default async function Home() {
+export async function generateStaticParams() {
   const posts = await getAllFilesFrontMatter('blog')
-  const author = await getAuthorFrontMatter('default')
-  
-  // Convert talks to feed items with normalized dates
+
   const talkItems: FeedItem[] = talksData.map((talk) => {
-    // Parse MM-DD-YYYY format
     const [month, day, year] = talk.date.split('-')
     const isoDate = `${year}-${month}-${day}`
     return {
@@ -40,30 +30,70 @@ export default async function Home() {
       },
     }
   })
-  
-  // Convert projects to feed items
+
   const projectItems: FeedItem[] = projectsData.map((project) => ({
     type: 'project' as const,
     data: {
       ...project,
-      date: project.date || new Date().toISOString().split('T')[0], // Use date from projectsData or fallback to current date
+      date: project.date || new Date().toISOString().split('T')[0],
     },
   }))
-  
-  // Convert posts to feed items
+
   const postItems: FeedItem[] = posts.map((post) => ({
     type: 'post' as const,
     data: post,
   }))
-  
-  // Combine and sort by date (newest first)
+
+  const allItems: FeedItem[] = [...postItems, ...projectItems, ...talkItems]
+  const totalPages = Math.ceil(allItems.length / POSTS_PER_PAGE)
+
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    page: (i + 2).toString(),
+  }))
+}
+
+export const metadata: Metadata = {
+  title: siteMetadata.title,
+  description: siteMetadata.description,
+}
+
+export default async function Page({ params }: { params: Promise<{ page: string }> }) {
+  const { page } = await params
+  const pageNumber = parseInt(page)
+  const posts = await getAllFilesFrontMatter('blog')
+
+  const talkItems: FeedItem[] = talksData.map((talk) => {
+    const [month, day, year] = talk.date.split('-')
+    const isoDate = `${year}-${month}-${day}`
+    return {
+      type: 'talk' as const,
+      data: {
+        ...talk,
+        date: isoDate,
+      },
+    }
+  })
+
+  const projectItems: FeedItem[] = projectsData.map((project) => ({
+    type: 'project' as const,
+    data: {
+      ...project,
+      date: project.date || new Date().toISOString().split('T')[0],
+    },
+  }))
+
+  const postItems: FeedItem[] = posts.map((post) => ({
+    type: 'post' as const,
+    data: post,
+  }))
+
   const allItems: FeedItem[] = [...postItems, ...projectItems, ...talkItems].sort(
     (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
   )
 
-  // Pagination
   const totalPages = Math.ceil(allItems.length / POSTS_PER_PAGE)
-  const displayItems = allItems.slice(0, POSTS_PER_PAGE)
+  const startIndex = (pageNumber - 1) * POSTS_PER_PAGE
+  const displayItems = allItems.slice(startIndex, startIndex + POSTS_PER_PAGE)
 
   return (
     <>
@@ -80,12 +110,12 @@ export default async function Home() {
           {displayItems.length === 0 && 'No items found.'}
           {displayItems.map((item, index) => {
             const { date } = item.data
-            const itemKey = item.type === 'post' 
-              ? `post-${item.data.slug}` 
+            const itemKey = item.type === 'post'
+              ? `post-${item.data.slug}`
               : item.type === 'project'
               ? `project-${index}`
               : `talk-${index}`
-            
+
             return (
               <li key={itemKey} className="py-12">
                 <article>
@@ -182,8 +212,7 @@ export default async function Home() {
           })}
         </ul>
       </div>
-      {totalPages > 1 && <PaginationHome currentPage={1} totalPages={totalPages} />}
+      {totalPages > 1 && <PaginationHome currentPage={pageNumber} totalPages={totalPages} />}
     </>
   )
 }
-
