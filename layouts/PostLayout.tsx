@@ -160,7 +160,7 @@ export default function PostLayout({ frontMatter, next, prev, children, toc, rel
                         </h2>
                         <Link
                           href={`/blog/${prev.slug}`}
-                          className="shimmer-hover link-modern-hover bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-base font-medium text-transparent transition-all hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 hover:translate-x-1 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300"
+                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                         >
                           {prev.title}
                         </Link>
@@ -173,7 +173,7 @@ export default function PostLayout({ frontMatter, next, prev, children, toc, rel
                         </h2>
                         <Link
                           href={`/blog/${next.slug}`}
-                          className="shimmer-hover link-modern-hover bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-base font-medium text-transparent transition-all hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 hover:translate-x-1 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300"
+                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                         >
                           {next.title}
                         </Link>
@@ -185,12 +185,9 @@ export default function PostLayout({ frontMatter, next, prev, children, toc, rel
               <div className="pt-4 xl:pt-8">
                 <Link
                   href="/blog"
-                  className="shimmer-hover link-modern-hover inline-flex items-center gap-2 text-base font-medium transition-all hover:translate-x-[-4px]"
+                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                 >
-                  <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold dark:from-primary-300 dark:via-primary-500 dark:to-primary-400">&larr;</span>
-                  <span className="bg-gradient-to-r from-primary-700 via-primary-500 to-primary-600 bg-clip-text text-transparent font-bold hover:from-primary-400 hover:via-primary-500 hover:to-primary-600 dark:from-primary-300 dark:via-primary-500 dark:to-primary-400 dark:hover:from-primary-200 dark:hover:via-primary-400 dark:hover:to-primary-300">
-                    Back to the blog
-                  </span>
+                  &larr; Back to the blog
                 </Link>
               </div>
             </footer>

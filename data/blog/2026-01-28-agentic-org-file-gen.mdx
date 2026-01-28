@@ -1,0 +1,122 @@
+---
+title: 'Managing my org files with agents'
+date: '2026-01-28'
+tags: ['code-chronicles', 'emacs', 'productivity']
+draft: false
+images: ['']
+summary: 'How I use an AI agent to coalesce project planning, calendar, and code review action items into a minimalist single pane view'
+---
+
+I don't know why, but every couple of years I get bitten by an "I should try Emacs bug." I have no idea why, it's just this like... recurring intrusive thought. Usually I try and launch head-first into trying to replace my IDE, which is kind of like Emacs on hard mode. 
+
+This time, though, I was allured by [org mode](https://orgmode.org/). I am a list-maker. A journaler. A planner. I _love_ that fresh notebook feeling. I live for setting up a new TODO tracker. That satisfying feeling of drawing a big fat X next to a completed item is just :chefs-kiss:. Lists and notebooks help me get all of the planning chaos out of my head and down somewhere without having to worry I'll forget it (unless I lose the notebook which... happens). All of this to say, org mode's promise of being `A GNU Emacs major mode for keeping notes, authoring documents, computational notebooks, literate programming, maintaining to-do lists, planning projects, and more — in a fast and effective plain text system.` was promising. I'm not sure why I'd previously written it off. I'd probably gotten a new notebook that day or something.
+
+And I'll preface all of this by saying that I've only scratched the surface. There is a _lot_ more you can do with org mode. There's also a lot _less_ you can do with org mode. It's as much of a can of worms as you want it to be. This is just what I've started with for now.
+
+An org file for todos is pretty simple!
+
+```org:inbox.org {4-5} 
+#+TITLE: Inbox
+
+* Inbox
+* TODO do a really important thing                                  :work:
+SCHEDULED: <2026-01-28 Wed>
+- [ ] subtask 1
+- [ ] subtask 2
+
+* DONE write blog post intro                                        :writing:
+CLOSED: [2026-01-27 Tue 14:30]
+
+* TODO review PR by Friday                                          :work:
+DEADLINE: <2026-01-30 Fri>
+
+* Notes
+Make sure you don't forget to tag your boss on important thing.
+```
+
+Which when viewed in org mode in Emacs looks something like:
+
+
+<Image
+  src="/static/images/posts/2026-agentic-org-file-gen/example-agenda.png"
+  width="600"
+  height="400"
+  alt="Example org file in org mode agenda view in Emacs"
+/>
+
+The tags work as filters. If you click on `:work:` (if you're using the GUI version of Emacs) it will filter your list to just the work items.
+
+<Image
+  src="/static/images/posts/2026-agentic-org-file-gen/example-agenda-filtered.png"
+  width="600"
+  height="400"
+  alt="Example org file in org mode agenda view in Emacs"
+/>
+
+I love it.
+
+But I wanted to go a bit further. I've been playing with building agents using different frameworks and MCP capabilities. I wanted an agent to coalesce data from my work calendar, Linear, and Github to generate a todo list for me each morning. I also wanted the ability to add my own items.
+
+I landed on generating separate org files for each source. In order to securely fetch the data without my credentials passing through the agent or LLM directly, I created an MCP gateway using [Arcade](https://www.arcade.dev/). I granted the MCP gateway access to _only_ the read tools that I wanted to leverage (Github, Linear, Google Calendar). No write access tools. 
+
+Then I wrote an agent using [Mastra](https://mastra.ai/) to glue it all together. It doesn't do anything too fancy, just tells the agent how I want files formatted, where they should live, how to deduplicate entries (like a PR that has a matching Linear entry). The code is [here](https://github.com/teallarson/org-sync). Notice that there are no `.env` variables for any of the tool auth. My agent does _not_ have direct access to any of my tokens -- that's all managed by Arcade like I mentioned before. The agent simply forwards me the [URL elicitation](https://blog.arcade.dev/https-arcade-dev-blog-mcp-url-elicitation-production-authorization) link for each set of tools and I grant access via OAuth. 
+
+From there, I wrote up a little snippet in my `config.el` (note: I'm using Doom Emacs because I wanted some sane defaults set for me. If you're using vanilla Emacs ymmv!):
+
+```emacs-lisp:config.el
+;;; Org Agenda on Startup (Doom Emacs)
+  ;; Shows today's agenda in a side window when Emacs starts.
+
+  (after! org-agenda
+    ;; Prevent Doom's popup system from managing the agenda buffer
+    (set-popup-rule! "^\\*Org Agenda\\*" :ignore t)
+
+    ;; Show just today, starting from today
+    (setq org-agenda-span 'day
+          org-agenda-start-on-weekday nil
+          org-agenda-start-day nil))
+
+  (defun my/agenda-side ()
+    "Open today's agenda in a side window."
+    (interactive)
+    (let ((orig-win (selected-window)))
+      (save-window-excursion
+        (org-agenda nil "a"))
+      (when-let ((buf (get-buffer "*Org Agenda*")))
+        (display-buffer-in-side-window
+         buf '((side . right) (slot . 0) (window-width . 0.35)))
+        (set-window-dedicated-p (get-buffer-window buf) t))
+      (select-window orig-win)))
+
+  (defun my/agenda-refresh ()
+    "Refresh the agenda buffer if it exists."
+    (when-let ((buf (get-buffer "*Org Agenda*")))
+      (with-current-buffer buf
+        (org-agenda-redo-all))))
+
+  ;; Open agenda on startup
+  (add-hook 'doom-init-ui-hook
+            (lambda ()
+              (when (display-graphic-p)
+                (run-with-timer 0.3 nil #'my/agenda-side))))
+
+  ;; Auto-refresh every 5 minutes
+  (run-with-timer 300 300 #'my/agenda-refresh)
+
+  ;; Keybinding (optional)
+  (map! :leader
+        :desc "Agenda (side)" "o A" #'my/agenda-side)
+```
+
+Which gives me this (work tasks redacted ;)):
+
+<Image
+  src="/static/images/posts/2026-agentic-org-file-gen/personal-agenda.png"
+  width="600"
+  height="400"
+  alt="Example org file in org mode agenda view in Emacs"
+/>
+
+It's so good. I can view an individual item to get a link right to the Linear issue / Github, easily toggle between `TODO`/`IN REVIEW`/`WAITING` modes, filter by status or tag, etc. I can also call the `my/agenda-refresh` function defined there ^ if I don't want to wait for the every 5 min refresh.
+
+I haven't migrated my writing or my code editing over to Emacs yet, so we'll see
