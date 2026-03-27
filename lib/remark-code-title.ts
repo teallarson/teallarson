@@ -7,10 +7,19 @@ export default function remarkCodeTitles() {
       const nodeLang = node.lang || ''
       let language = ''
       let title = ''
+      let meta = ''
 
-      if (nodeLang.includes(':')) {
-        language = nodeLang.slice(0, nodeLang.search(':'))
-        title = nodeLang.slice(nodeLang.search(':') + 1, nodeLang.length)
+      // Extract meta (line highlighting like {1-3}, showLineNumbers, etc.)
+      // Meta can appear after the title or after the language
+      const metaMatch = nodeLang.match(/\s*(\{[^}]+\}.*?)$/)
+      const langWithoutMeta = metaMatch ? nodeLang.slice(0, metaMatch.index) : nodeLang
+      if (metaMatch) {
+        meta = metaMatch[1]
+      }
+
+      if (langWithoutMeta.includes(':')) {
+        language = langWithoutMeta.slice(0, langWithoutMeta.search(':'))
+        title = langWithoutMeta.slice(langWithoutMeta.search(':') + 1)
       }
 
       if (!title || index === undefined) {
@@ -28,6 +37,7 @@ export default function remarkCodeTitles() {
       }
 
       parent.children.splice(index, 0, titleNode)
-      node.lang = language
+      // Reattach meta to language so rehype-prism-plus can process it
+      node.lang = meta ? `${language} ${meta}` : language
     })
 }
