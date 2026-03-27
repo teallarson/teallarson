@@ -1,5 +1,5 @@
 ---
-title: 'Managing my org files with agents'
+title: 'Managing my org files with an agent'
 date: '2026-01-28'
 tags: ['code-chronicles', 'emacs', 'productivity']
 draft: false
@@ -100,9 +100,6 @@ From there, I wrote up a little snippet in my `config.el` (note: I'm using Doom 
               (when (display-graphic-p)
                 (run-with-timer 0.3 nil #'my/agenda-side))))
 
-  ;; Auto-refresh every 5 minutes
-  (run-with-timer 300 300 #'my/agenda-refresh)
-
   ;; Keybinding (optional)
   (map! :leader
         :desc "Agenda (side)" "o A" #'my/agenda-side)
@@ -117,6 +114,8 @@ Which gives me this (work tasks redacted ;)):
   alt="Example org file in org mode agenda view in Emacs"
 />
 
-It's so good. I can view an individual item to get a link right to the Linear issue / Github, easily toggle between `TODO`/`IN REVIEW`/`WAITING` modes, filter by status or tag, etc. I can also call the `my/agenda-refresh` function defined there ^ if I don't want to wait for the every 5 min refresh.
+It's so good. I can view an individual item to get a link right to the Linear issue / Github, easily toggle between `TODO`/`IN REVIEW`/`WAITING` modes, filter by status or tag, etc. 
 
 I haven't migrated my writing or my code editing over to Emacs yet, so we'll see
+
+UPDATE: As of March 2026, I have once again abandoned EMACS. I'm back on, believe it or not, pen and paper todo's/notes. A lot of cognitive research around the benefits of putting pen to paper! Will I go back to EMACS again soon? We'll see.
