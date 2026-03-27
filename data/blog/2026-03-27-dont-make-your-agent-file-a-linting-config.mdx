@@ -1,0 +1,51 @@
+---
+title: "You need a linting config, not agent instructions"
+date: '2026-03-27'
+tags: ['agentic-development']
+draft: false
+images: ['sdlasdlkfjaslkfj']
+summary: ""
+---
+
+Everyone's got an article these days about what belongs in a top-level agent instruction file for a project. Some of them are absolutely spot on: references to architecture documentation and team preferences are a go for sure. This is useful context for anyone working in a codebase, be they coding agent or human.
+
+But some of the suggestions I see floating around are, dare I say, absolute garbage.
+
+I saw one the other day listing shared conventions like:
+- tabs vs. spaces
+- brackets
+- camelCase vs PascalCase
+
+Here's where I take issue with this: agents (and humans) shouldn't have to reason about those things.
+
+I love linters and formatters. Like absolutely love static code analysis. I think parsing and traversing ASTs is absolutely beautiful and I love thinking about it. But, unfortunately, that's not the point of this little bit. Maybe I'll write an ode to them later. Probably not.
+
+But the main thing I love about a linter is that it removes a bunch of dumb mental overhead from writing code. I have said for years that static analysis tools "let a computer deal with and remember the stupid little things that a human shouldn't have to."
+
+Reordering imports? I will never remember to do this. Adding some silly little annotation that our API framework needs to be on every single POST endpoint in order to parse the request body? Better believe I shan't be remembering to do that either. 
+
+Human minds can only deal with so much cognitive overhead. Same thing for agents and context windows. Why fill them up with nitty-gritty dumb little details that have nothing to do with the core functionality of a program? The number of times in the last five years I've thought about tabs vs. spaces? Once. When I took a class where we had to write C in a plain ole text editor (or something like that. I blocked out the memory. It was painful.) But it is 2026, my friend. You do not have to put yourself through that (unless you want to). We have beautiful, wonderful tools and abstractions.
+
+A solid linting setup, including custom rules where they help, eases cognitive burden for humans and context windows for agents. This lets both focus on what they're actually good at.
+
+
+## Warning: agents are lazy
+
+I used to be on a number of teams that would add linting as a pre-commit hook. I never personally liked this. I commit frequently because of some little bitty fear in the back of my head that my computer might spontaneously combust and I'll lose my work. So I check in code fairly frequently and then loop back and clean up my commit history into something sane before PR review. So just let me check in my garbage code! I would end up just using `--no-verify` and bypassing the pre-commit. Inevitably, on more than one occasion, we ended up with un-linted/un-formatted code on main and had to push another PR just to fix it (it wasn't _just_ me).
+
+I've seen agents be even more heavy-handed with the `--no-verify` flag when pushing a commit. I've also seen them add a bunch of `lint-disable` comments to code instead of resolving linting problems.
+
+I've battled this in two ways:
+
+### Use agent hooks
+Claude Code, Cursor, and Codex each now supports hooks. You can probably assume whatever other coding agent you use either already has them or will soon.
+
+These agent hooks allow you to run a script at certain stages in the lifecycle of the agent loop. I have mine set up to run the format/lint command after Edit or Write tool executions. This prevents most issues.
+
+### Use CI
+Truly, sincerely, just run a linting/formatting check in CI and move on with your life. It's short. It's fast. It's a lot easier than ending up with bad formatting on main and having to put up another PR just to clean up the mess.
+
+### But also use instructions
+I do include some of this in instructions. I tell it to NEVER ignore a linter suggestion unless I have expressly told it to. It is usually not the right move. That's the whole point of the rule.
+
+So create an instruction file, add architecture context, add team conventions that _aren't_ able to be automated, add domain knowledge, but don't bloat it with things an agent shouldn't have to "think" about.

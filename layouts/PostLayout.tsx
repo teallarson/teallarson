@@ -8,7 +8,6 @@ import SocialShare from '@/components/SocialShare'
 import TOCInline from '@/components/TOCInline'
 import ReadingProgress from '@/components/ReadingProgress'
 import PostSeries from '@/components/PostSeries'
-import ViewCounter from '@/components/ViewCounter'
 import formatDate from '@/lib/utils/formatDate'
 import { ReactNode } from 'react'
 import { PostFrontMatter } from 'types/PostFrontMatter'
@@ -63,7 +62,7 @@ export default function PostLayout({ frontMatter, next, prev, children, toc, rel
                 <PageTitle>{title}</PageTitle>
               </div>
               {summary && (
-                <p className="mx-auto max-w-2xl text-lg leading-7 text-gray-600 dark:text-gray-300">
+                <p className="mx-auto max-w-2xl text-base leading-6 text-gray-600 dark:text-gray-300">
                   {summary}
                 </p>
               )}
@@ -79,11 +78,10 @@ export default function PostLayout({ frontMatter, next, prev, children, toc, rel
                   <PostSeries series={series} currentSlug={slug} posts={allPosts} />
                 </div>
               )}
-              <div className="prose prose-lg max-w-none pt-10 pb-8 dark:prose-dark">
+              <div className="prose prose-sm max-w-none pt-10 pb-8 dark:prose-dark">
                 {children}
               </div>
-              <div className="flex flex-col gap-4 border-t border-gray-200 pt-6 dark:border-gray-700 sm:flex-row sm:items-center sm:justify-between">
-                <ViewCounter slug={slug} />
+              <div className="flex justify-end border-t border-gray-200 pt-6 dark:border-gray-700">
                 <SocialShare url={postUrl} title={title} summary={summary} />
               </div>
               {relatedPosts && relatedPosts.length > 0 && (
