@@ -24,7 +24,7 @@ const projectsData = [
     title: 'See More!',
     description: `Check out my open source contributions, public work projects, and more on Github.`,
     imgSrc: '/static/images/projects/teal.png',
-    href: 'https://github.com/tealjulia',
+    href: 'https://github.com/teallarson',
     date: '2020-01-01', // Format: YYYY-MM-DD - Update this with the actual project date
   },
 ]
